@@ -10,6 +10,7 @@ class InternationalPhoneInputText extends StatefulWidget {
   final TextStyle hintStyle;
   final int errorMaxLines;
   final String labelText;
+  final List<Country> Function(List<Country>) onSortList;
 
   const InternationalPhoneInputText(
       {Key key,
@@ -17,7 +18,8 @@ class InternationalPhoneInputText extends StatefulWidget {
       this.hintStyle,
       this.errorMaxLines,
       this.onValidPhoneNumber,
-      this.labelText})
+      this.labelText,
+      this.onSortList})
       : super(key: key);
 
   @override
@@ -40,7 +42,7 @@ class _InternationalPhoneInputTextState
             context, 'packages/international_phone_input/assets/countries.json')
         .then((list) {
       setState(() {
-        countries = list;
+        countries = widget.onSortList != null ? widget.onSortList(list) : list;
       });
     });
   }
