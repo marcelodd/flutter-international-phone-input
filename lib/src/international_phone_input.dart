@@ -22,6 +22,8 @@ class InternationalPhoneInput extends StatefulWidget {
   final TextStyle labelStyle;
   final int errorMaxLines;
   final List<String> enabledCountries;
+  final List<Country> Function(List<Country>) onSortList;
+
 
   InternationalPhoneInput(
       {this.onPhoneNumberChange,
@@ -93,7 +95,7 @@ class _InternationalPhoneInputState extends State<InternationalPhoneInput> {
       }
 
       setState(() {
-        itemList = list;
+        itemList = widget.onSortList != null ? widget.onSortList(list) : list;
         selectedItem = preSelectedItem;
       });
     });
